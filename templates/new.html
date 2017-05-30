@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center">Create a New BP Log</h1>
+        <div style="width: 30%; margin: 25px auto;">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+            <form action="/logs/new" method="POST">
+                <div class="form-group">
+                    <label for="">Date</label>
+                    <input class="form-control" type="text" name="date" placeholder="Date (MM/DD/YY)" value={{ date }}>
+                </div>
+                <div class="form-group">
+                    <label for="">Time</label>
+                    <input class="form-control" type="text" name="time" placeholder="Time (HH:MMAM(PM))", value={{ time }}>
+                </div>
+                <div class="form-group">
+                    <label for="">SYS</label>
+                    <input class="form-control" type="text" name="SYS" placeholder="SYS", value={{ sys }}>
+                </div>
+                <div class="form-group">
+                    <label for="">DIA</label>
+                    <input class="form-control" type="text" name="DIA" placeholder="DIA" value={{ dia }}>
+                </div>
+                <div class="form-group">
+                    <label for="">Pulse</label>
+                    <input class="form-control" type="text" name="Pulse" placeholder="Pulse" value={{ pulse }}>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+            <a href="/logs">Go Back</a>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <header class="jumbotron">
+         <div class="container">
+             <h1 style="text-align: center">Your BP Logs!</h1>
+             <p style="text-align: center">a place to keep your BP Logs</p>
+             <p style="text-align: center">
+                <a class="btn btn-primary btn-lg" href="/logs/new">Add New BP Log</a>
+             </p>
+         </div>
+     </header>
+     <div class="container">
+    {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-warning alert-dismissible" role="alert" style="text-align: center">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    <h2>BP Monitor Logs</h2>   
+    {% if avgs: %}
+        {% for avg in avgs:%}
+            <h3>Average:{{ avg['SYS'] }}/{{ avg['DIA'] }} Pulse:{{ avg['Pulse'] }}</h3>
+        {% endfor %}
+    {% else: %}
+        <h3>Average:{{ sys }} / {{ dia }} Pulse: {{pulse}}</h3>
+    {% endif%}
+    <table class="table table-condensed">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>SYS</th>
+            <th>DIA</th>
+            <th>Pulse</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if logs: %}
+            {% for log in logs %}
+                <tr>
+                    <td>{{ log['date'] }}</td>
+                    <td>{{ log['time'] }}</td>
+                    <td>{{ log['SYS'] }}</td>
+                    <td>{{ log['DIA'] }}</td>
+                    <td>{{ log['Pulse'] }}</td>
+                    <td><a class="btn btn-link" href="/logs/delete/{{ log.id }}">Delete</a></td>
+    
+                </tr>
+            {% endfor %}
+        {% else: %}
+            <p>No BP Logs??</p>
+        {% endif %}
+        </tbody>
+    </table>
+{% endblock %}
