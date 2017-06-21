@@ -19,7 +19,7 @@ print("----\t\t\t----\t\t---\t---\t-----")
 
 db = SqliteDatabase('data/health_stats.db')
 
-class BaseMoel(Model):
+class BaseModel(Model):
     class Meta:
         database = db
 
