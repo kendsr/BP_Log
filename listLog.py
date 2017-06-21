@@ -23,7 +23,7 @@ class BaseMoel(Model):
     class Meta:
         database = db
 
-class bp_log(BaseMoel):
+class bp_log(BaseModel):
     id = PrimaryKeyField()
     date = CharField()
     time = CharField()
