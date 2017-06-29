@@ -5,6 +5,9 @@
 	<div class="jumbotron">
 	  <h1 style="text-align: center">{{ title }}</h1>
 	  <p style="text-align: center">a place to keep your Blood Pressure readings</p>
+      <p style="text-align: center">
+          <a class="btn btn-primary btn-lg" href="/logs/new">Add New BP Log</a>
+      </p>
 	</div>
     {% with messages = get_flashed_messages() %}
             {% if messages %}
