@@ -31,21 +31,34 @@ class bp_log(BaseModel):
     dia = IntegerField()
     pulse = IntegerField()
 
+def output(logs, totlogs):
+    ''' Accumulate totals and format output '''
+    totsys = 0
+    totdia = 0
+    totpulse = 0
+    for log in logs:
+        totsys += log.sys
+        totdia += log.dia
+        totpulse += log.pulse
+        out = '{}\t\t{}\t\t{}\t{}\t{}'.format(log.date, log.time, log.sys, log.dia, log.pulse)
+        print(out)
+    avg = '\nAverage: {}/{} {}'.format(round(totsys/totlogs), round(totdia/totlogs), round(totpulse/totlogs))
+    print("\n", avg)
+
 db.connect()
 
 if not startDate:
-    for log in bp_log.select():
-        out = '{}\t\t{}\t\t{}\t{}\t{}'.format(log.date, log.time, log.sys, log.dia, log.pulse)
-        print(out)
+    logs = bp_log.select()
+    totlogs = len(logs)
+    output(logs, totlogs)
 elif startDate and not endDate:
-    for log in bp_log.select().where(bp_log.date >= startDate):
-        out = '{}\t\t{}\t\t{}\t{}\t{}'.format(log.date, log.time, log.sys, log.dia, log.pulse)
-        print(out)
+    logs = bp_log.select().where(bp_log.date >= startDate)
+    totlogs = len(logs)
+    output(logs, totlogs)
 elif startDate and endDate:
-    for log in bp_log.select().where((bp_log.date >= startDate) & (bp_log.date <= endDate)):
-        out = '{}\t\t{}\t\t{}\t{}\t{}'.format(log.date, log.time, log.sys, log.dia, log.pulse)
-        print(out)
-
+    logs = bp_log.select().where((bp_log.date >= startDate) & (bp_log.date <= endDate))
+    totlogs = len(logs)
+    output(logs, totlogs)
 
 db.close()
 
